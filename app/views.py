@@ -1,63 +1,76 @@
 from django.shortcuts import render, redirect
-from django.views import View
-from .models import User
-from hashlib import md5
+from django.http import HttpResponse
+from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.core.mail import send_mail
+from django.urls import reverse #####
+from django.contrib.auth.decorators import login_required
+# from .decorator import check_authenticate
+
+
+
+
 
 # Create your views here.
-class Home(View):
-    template_name = 'home.html'
-    def get(self, request):
-        if 'user' not in request.session:
-            return redirect('login')
-        else:
-            return render(request, self.template_name)
-
-class RegisterView(View):
-    template_name = 'register.html'
-    def get(self, request):
-        return render(request, self.template_name)
-    def post(self, request):
-        fname = request.POST['uname']
-        pwd = request.POST['pwd']
-        mail = request.POST['email']
-        gender = request.POST['gender']
-        # Hash the passwords
-        unique_email = User.objects.filter(email=mail)
-        
-        if unique_email.exists():
-            messages.warning(request, 'Email exists')
-            return render(request, self.template_name)
-        else:
-            hash_pwd = md5(pwd.encode()).hexdigest()
-            register_user = User.objects.create(fname=fname, password=hash_pwd, email=mail, gender=gender)
-            register_user.save()
-            messages.success(request, 'your account created successfully.')
-            return redirect('login')
-        
-
-
-class LoginView(View):
-    template_name = 'login.html'
-    def get(self, request):
-        if 'user' in request.session:
-            return redirect('home')
-        else:
-            return render(request, self.template_name)
+@login_required(login_url='login')
+def index(request):
+    return render(request,'index.html')
     
-    def post(self, request):
-        mail = request.POST['email']
-        pwd = request.POST['pwd']
-        hash_pwd = md5(pwd.encode()).hexdigest()
-        user_exists = User.objects.filter(email=mail, password=hash_pwd)
-        if user_exists.exists():
-            request.session['user'] = user_exists.first().fname
+
+def register(request):
+    if request.user.is_authenticated:
+        return redirect(reverse('main.html'))
+    if request.method=='POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        firstname = request.POST.get('fname')
+        lastname = request.POST.get('lname')
+        username = request.POST.get('uname')
+        if User.objects.filter(email=email).exists():
+            messages.warning(request,'email is already exists')
+            return redirect('register')
         else:
-            messages.warning(request, 'Wrong credentials')
-        return redirect('home')
+            user = User(email=email,password=password,first_name=firstname,
+            last_name=lastname,username=username)
+            user.set_password(password)
+            user.save()
+            subject = 'About Registration'
+            message = f'Hi ,You has been registered successfully on website.'
+            email_from = 'sinturana250@gmail.com'
+            rec_list = [email,]
+            response = send_mail(
+                subject,
+                message,
+                email_from,
+                rec_list,
+                fail_silently=False
+            )
+            print("UYFRUYYUBTYUTBYUTUYBGUN", response)
+
+            messages.success(request, 'User has been sucessfully registered')
+            return redirect('/')
+        # return redirect(reverse('main.html'))
+    return render(request,'register.html')
 
 
-class LogoutView(View):
-    def get(self, request):
-        del request.session['user']
-        return redirect('login')
+def login_user(request):
+    if request.user.is_authenticated:
+        return redirect(reverse('main.html'))
+    if request.method=='POST':
+        username = request.POST['uname']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('/')
+        else:
+            messages.warning(request,'Invalid Credentials')
+            # return redirect('login')
+        return redirect(reverse('main.html'))
+    return render(request,'login.html')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('/')
