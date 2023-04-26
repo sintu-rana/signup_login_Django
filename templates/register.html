@@ -22,63 +22,74 @@
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card shadow-2-strong" style="border-radius: 1rem;">
-            <div class="card-body p-5 text-center">
+            <div class="card-body p-5">
   
               <h3 class="mb-5">Sign Up</h3>
 
               <form class='container my-4' method='POST' action='register'>
                 {% csrf_token %}
                 <div class="form-row">
-                  <div class="form-group col-md-6">
+                  <!-- <div class="form-group col-md-6">
                     <label for="inputEmail4">Email</label>
                     <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name='email'>
-                  </div>
-                  <div class="form-group col-md-6">
+                  </div> -->
+                  <!-- <div class="form-group col-md-6">
                     <label for="inputPassword4">Password</label>
                     <input type="password" class="form-control" id="inputPassword4" placeholder="Password"
                     name='password'>
-                  </div>
+                  </div> -->
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail4">Email</label>
+                  <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name='email' required>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword4">Password</label>
+                  <input type="password" class="form-control" id="inputPassword4" placeholder="Password"
+                  name='password' required>
                 </div>
                 <div class="form-group">
                   <label for="inputAddress">First Name</label>
                   <input type="text" class="form-control" id="inputAddress" placeholder="First Name"
-                  name='fname'>
+                  name='fname' required>
                 </div>
                 <div class="form-group">
                   <label for="inputAddress2">Last Name</label>
                   <input type="text" class="form-control" id="inputAddress2" placeholder="Last Name"
-                  name='lname'>
+                  name='lname' required>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-12">
                     <label for="inputCity">User Name</label>
-                    <input type="text" class="form-control" id="inputCity" placeholder="User Name" name='uname'>
+                    <input type="text" class="form-control" id="inputCity" placeholder="User Name" name='uname' required>
                   </div>
                   
-                  
+                
             
-                <div class="form-group">
-                  
-        
-                </div>
-                <!-- <button type="submit" class="btn btn-primary">Sign Up</button> -->
                 
-                <hr class="my-4">
-                </div>
-
-                <!-- <button class="btn btn-primary btn-lg btn-block" type="submit">Login</button> -->
+                
                 <div class="form-check d-flex justify-content-start mb-4">
-                
+             
                     <label class="form-check-label" for="form1Example3">
                         <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
                         
                     </label>
-    
+    </div>
                      
                     <hr class="my-4">
-                    <label class="form-check-label" for="form1Example3">
+
+                    <!-- <label class="form-check-label" for="form1Example3">
                         <a class="btn btn-success" href='login'>Sign In</a>
-                    </label>
+                    </label>  -->
+
+                    <div class="form-check d-flex justify-content-start mb-4">
+             
+                      <label class="form-check-label" for="form1Example3">
+                      <a class="btn btn-success btn-lg btn-block" href='login'>Sign In</a>
+                          
+                      </label>
+      </div>
+                 
     
                   </div>
 
