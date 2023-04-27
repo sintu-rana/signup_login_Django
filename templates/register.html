@@ -5,6 +5,7 @@
 
 
 
+
 {% block body %}
 {% for message in messages %}
 <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
@@ -64,11 +65,8 @@
                     <input type="text" class="form-control" id="inputCity" placeholder="User Name" name='uname' required>
                   </div>
                   
-                
-            
-                
-                
-                <div class="form-check d-flex justify-content-start mb-4">
+
+                <div class="d-flex justify-content-start mb-4">
              
                     <label class="form-check-label" for="form1Example3">
                         <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
@@ -78,9 +76,6 @@
                      
                     <hr class="my-4">
 
-                    <!-- <label class="form-check-label" for="form1Example3">
-                        <a class="btn btn-success" href='login'>Sign In</a>
-                    </label>  -->
 
                     <div class="form-check d-flex justify-content-start mb-4">
              
@@ -89,6 +84,10 @@
                           
                       </label>
       </div>
+
+      
+      <!-- <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
+       --> 
                  
     
                   </div>
@@ -102,5 +101,6 @@
       </div>
     </div>
   </section>
+  
 
 {% endblock body %}

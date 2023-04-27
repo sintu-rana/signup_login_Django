@@ -1,4 +1,5 @@
 <!doctype html>
+
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -13,17 +14,19 @@
   </head>
   <body style="background-color: skyblue;">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Headers</a>
+        <!-- <a class="navbar-brand" href="#">Headers</h1> -->
+          <h1 style="color: greenyellow;">Pages</h1>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
+            {% if request.user.is_authenticated %}
             <li class="nav-item active">
               <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+              
             </li>
-            {% if request.user.is_authenticated %}
             <li class="nav-item ">
               <a class="nav-link" href="/">{{request.user.username}}</a>
             </li>
@@ -31,21 +34,21 @@
               <a class="nav-link" href="logout">Logout</a>
             </li>
             {% else %}
-            <li class="nav-item">
+            
+            <li class="nav-item {% if request.path == '/register' %}active{% endif %}">
               <a class="nav-link" href="register">Register</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item {% if request.path == '/login' %}active{% endif %}">
               <a class="nav-link" href="login">Login</a>
             </li>
             {% endif %}
           
           </ul>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-          </form>
         </div>
       </nav>
+
+
+      
      {% block body %}
      
      {% endblock body %}

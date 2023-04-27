@@ -30,6 +30,9 @@ def register(request):
         if User.objects.filter(email=email).exists():
             messages.warning(request,'email is already exists')
             return redirect('register')
+        # elif User.objects.filter(username=username).exits():
+        #     messages.warning(request,'User Name is already exists')
+        #     return redirect('register')
         else:
             user = User(email=email,password=password,first_name=firstname,
             last_name=lastname,username=username)
