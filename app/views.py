@@ -34,10 +34,15 @@ def register(request):
         #     messages.warning(request,'User Name is already exists')
         #     return redirect('register')
         else:
-            user = User(email=email,password=password,first_name=firstname,
-            last_name=lastname,username=username)
-            user.set_password(password)
-            user.save()
+            try:
+                user = User(email=email,password=password,first_name=firstname,
+                last_name=lastname,username=username)
+                user.set_password(password)
+                user.save()
+            except:
+                  messages.warning(request,"username is already registered")
+                  return redirect('register')
+                  
             subject = 'About Registration'
             message = f'Hi ,You has been registered successfully on website.'
             email_from = 'sinturana250@gmail.com'
