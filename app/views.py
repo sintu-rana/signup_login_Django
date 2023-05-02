@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from django.contrib.auth.models import User
+from app.models import CustomUser
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.core.mail import send_mail
@@ -9,15 +9,22 @@ from django.contrib.auth.decorators import login_required
 # from .decorator import check_authenticate
 
 
-
-
-
 # Create your views here.
 @login_required(login_url='login')
 def index(request):
     return render(request,'index.html')
-    
 
+'''
+make a api with Admin<only access using that admin can create roles --> Manager/Employee
+
+inputs --> email, username/f-name/l-name, role
+
+extra --> password should be auto generated from backend side
+
+compulsory-->admin ke time pe admin hi access honi chahiye
+
+
+'''
 def register(request):
     if request.user.is_authenticated:
         return redirect(reverse('main.html'))
@@ -27,7 +34,9 @@ def register(request):
         firstname = request.POST.get('fname')
         lastname = request.POST.get('lname')
         username = request.POST.get('uname')
-        if User.objects.filter(email=email).exists():
+        role = request.POST.get('role')
+        
+        if CustomUser.objects.filter(email=email).exists():
             messages.warning(request,'email is already exists')
             return redirect('register')
         # elif User.objects.filter(username=username).exits():
@@ -35,8 +44,8 @@ def register(request):
         #     return redirect('register')
         else:
             try:
-                user = User(email=email,password=password,first_name=firstname,
-                last_name=lastname,username=username)
+                user = CustomUser(email=email,password=password,first_name=firstname,
+                last_name=lastname,username=username,role=role)
                 user.set_password(password)
                 user.save()
             except:
@@ -82,3 +91,6 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('/')
+
+def task(request):
+    return render(request, 'task.html')
