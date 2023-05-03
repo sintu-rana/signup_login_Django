@@ -33,11 +33,15 @@
             <li class="nav-item">
               <a class="nav-link" href="logout">Logout</a>
             </li>
-            {% else %}
-            
             <li class="nav-item {% if request.path == '/register' %}active{% endif %}">
               <a class="nav-link" href="register">Register</a>
             </li>
+           
+            {% else %}
+            
+            <!-- <li class="nav-item {% if request.path == '/register' %}active{% endif %}">
+              <a class="nav-link" href="register">Register</a>
+            </li> -->
             <li class="nav-item {% if request.path == '/login' %}active{% endif %}">
               <a class="nav-link" href="login">Login</a>
             </li>
@@ -45,6 +49,10 @@
             <li class="nav-item {% if request.path == '/task' %}active{% endif %}">
               <a class="nav-link" href="task">Task</a>
             </li>
+            <li class="nav-item {% if request.path == '/task-login' %}active{% endif %}">
+              <a class="nav-link" href="task-login">Task-Login</a>
+            </li>
+           
             {% endif %}
           
           </ul>
