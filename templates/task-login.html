@@ -1,22 +1,12 @@
+<h1>New  Task</h1>
 
-{% extends 'main.html' %}
-{% block body %}
-
-<div class="container pt-4">
-  <div class="col-lg-4 mx-auto shadow p-0 mt-4">
-    <div class="alert alert-info">
-      <h2>Login Here</h2>
-    </div>
-    <div class="p-4">
-      <form action="/task-login/" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <hr>
-        <input type="submit" value="Login" class="btn btn-info">
-      </form>
-    </div>
-  </div>
+<div style="background-color: pink; margin: auto; border: 1px solide black; height: 100px; width: 200px;">   
+<form method="POST" class="post-form">{% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="save btn btn-secondary">Save</button>
+    </form>
 </div>
-{% endblock body%}
 
-
+user = CustomUser.objects.get(email=request.user)
+if user.role == 'admin':
+    print("dsjd",user.role)

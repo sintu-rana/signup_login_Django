@@ -12,6 +12,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate as loginUser 
 
 
+
+
 # Create your views here.
 @login_required(login_url='login')
 def index(request):
@@ -28,51 +30,58 @@ compulsory-->admin ke time pe admin hi access honi chahiye
 
 
 '''
-@staff_member_required
+# @staff_member_required
+@login_required(login_url='login')
 def register(request):
-    if request.user.is_superuser:
+    # if request.user.is_superuser:
+    if request.method == 'GET':
+        user = CustomUser.objects.get(email=request.user)
+        if user.role == 'ADMIN':
+            return render(request,'register.html')
+        else:
+            messages.warning(request,"only admin can add role")
+            return redirect('login')
+    if request.method=='POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        firstname = request.POST.get('fname')
+        lastname = request.POST.get('lname')
+        username = request.POST.get('uname')
+        role = request.POST.get('role')
+        role = "MANAGER"
         
-
-        if request.method=='POST':
-            email = request.POST.get('email')
-            password = request.POST.get('password')
-            firstname = request.POST.get('fname')
-            lastname = request.POST.get('lname')
-            username = request.POST.get('uname')
-            role = request.POST.get('role')
-            if CustomUser.objects.filter(email=email).exists():
-                messages.warning(request,'email is already exists')
+        if CustomUser.objects.filter(email=email).exists():
+            messages.warning(request,'email is already exists')
+            return redirect('register')
+        # elif User.objects.filter(username=username).exits():
+        #     messages.warning(request,'User Name is already exists')
+        #     return redirect('register')
+        else:
+            try:
+                user = CustomUser(email=email,password=password,first_name=firstname,
+                last_name=lastname,username=username,role=role)
+                user.set_password(password)
+                user.save()
+            except:
+                messages.warning(request,"username is already registered")
                 return redirect('register')
-            # elif User.objects.filter(username=username).exits():
-            #     messages.warning(request,'User Name is already exists')
-            #     return redirect('register')
-            else:
-                try:
-                    user = CustomUser(email=email,password=password,first_name=firstname,
-                    last_name=lastname,username=username,role=role)
-                    user.set_password(password)
-                    user.save()
-                except:
-                    messages.warning(request,"username is already registered")
-                    return redirect('register')
-                    
-                subject = 'About Registration'
-                message = f'Hi ,You has been registered successfully on website.'
-                email_from = 'sinturana250@gmail.com'
-                rec_list = [email,]
-                response = send_mail(
-                    subject,
-                    message,
-                    email_from,
-                    rec_list,
-                    fail_silently=False
-                )
-                print("UYFRUYYUBTYUTBYUTUYBGUN", response)
-
-                messages.success(request, 'User has been sucessfully registered')
-                return redirect('/')
-            return redirect(reverse('main.html'))
-        return render(request,'register.html')
+                
+            subject = 'About Registration'
+            message = f'Hi ,You has been registered successfully on website.'
+            email_from = 'sinturana250@gmail.com'
+            rec_list = [email,]
+            response = send_mail(
+                subject,
+                message,
+                email_from,
+                rec_list,
+                fail_silently=False
+            )
+            print("UYFRUYYUBTYUTBYUTUYBGUN", response)
+            messages.success(request, 'User has been sucessfully registered')
+            return redirect('/')
+    return redirect(reverse('main.html'))
+    
 
 
 def login_user(request):
@@ -152,5 +161,6 @@ def login2(request):
 
 @staff_member_required
 def logout2(request):
+    
     logout2(request)
     return redirect('task.html')

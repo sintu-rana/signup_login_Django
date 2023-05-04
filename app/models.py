@@ -17,10 +17,9 @@ class CustomUser(AbstractUser):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['password']
     role = models.CharField(
-        max_length=20,
-        choices=CHOICES,
-        default="EMPLOYEE" 
-
+      max_length=20,
+      choices=CHOICES,
+      default="EMPLOYEE"
     )
  
     def __str__(self):
