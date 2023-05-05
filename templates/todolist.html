@@ -1,0 +1,53 @@
+{% extends 'main.html' %}
+{% block title %}
+
+{% endblock title %}
+{% block body %}
+
+<h1>Todo List</h1>
+
+<div class="container mt-5 bg-light" style="border:1px solid ; background-color:#1111; border-radius: 10px;">
+    <h1 class="m-4 text-center"> Todolist Records <a href="/" class="btn btn-primary">Add Todo</a></h1>
+    <table class="table table-bordered">
+        <tr class="bg-info text-white text-center ">
+            <td > SR NO.  </td>
+            <td > Id  </td>
+            <td>User</td>
+            <td> Task</td>
+            <td> Status </td>
+            <td> Priority  </td>
+            <td>Action</td>
+            <td>Task-Status</td>
+            
+        </tr>
+        {%for rec in records %}
+        <tr class="text-center">
+            <td>{{forloop.counter}}</td>
+            <td>{{rec.id}}</td>
+            <td>{{rec.user}}</td>
+            <td>{{rec.task}}</td>
+            <td>{{rec.status}}</td>
+            <td>{{rec.priority}}</td>
+            <td> <a href="" class="btn btn-success">Edit</a>/
+                <a href="" class="btn btn-danger">Delete</a>/
+                <!-- <a href="/View/{{rec.id}}" class="btn btn-primary">View</a> -->
+            </td>
+          
+            <td> 
+                    
+                    <a href="" title="Mark Completed" class="">Completed</a>/
+                   
+                    <a href="" title="Mark Inprogress" class="">Inprogess</a>/
+                   
+                    <a href="" title="Mark Pending" class="">Pending</a>
+                  </td>
+        </tr>
+    {%endfor%}
+    </table>
+</div>
+
+
+
+
+
+{% endblock body %}

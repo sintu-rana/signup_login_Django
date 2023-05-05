@@ -10,6 +10,7 @@ urlpatterns = [
     path('logout',views.logout_user,name='logout'),
     path('task/',views.create_newuser,name='task'),
     # path('task-login/',views.task-login,name='task-login'),
+    path('todolist',views.userlist,name='todolist'),
     path('task-login/',views.login2,name='task-login'),
     path('logout2/',views.logout2,name='logout2'),
     path('reset_password',auth_views.PasswordResetView.as_view(template_name='password_reset_form.html'),name="reset_password"),

@@ -10,15 +10,34 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate as loginUser 
+from .forms import TODOForm
+from .models import TODO
 
 
 
 
 # Create your views here.
+# @login_required(login_url='login')
+# def index(request):
+#     return render(request,'index.html')
+
+
 @login_required(login_url='login')
 def index(request):
-    return render(request,'index.html')
-
+    if request.user.is_authenticated:
+        user = request.user
+        print(user)
+        form = TODOForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            todo = form.save(commit=False)
+            todo.user = user
+            todo.save()
+            messages.success(request, 'Todo Task is Uploaded successfully')
+            print(todo)
+            return redirect("main.html")
+        else: 
+            return render(request , 'index.html' , context={'form' : form})
 '''
 make a api with Admin<only access using that admin can create roles --> Manager/Employee
 
@@ -164,3 +183,13 @@ def logout2(request):
     
     logout2(request)
     return redirect('task.html')
+
+
+
+# def userlist(request):
+#     return render(request,'todolist.html')
+
+def userlist(request):
+    records=TODO.objects.all()
+    mydict={'records':records}
+    return render(request,'todolist.html',context=mydict)

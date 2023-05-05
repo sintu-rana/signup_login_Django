@@ -16,6 +16,14 @@
   </div>
   {% endfor %}
 
+
+  <br>
+
+  <span style="margin-left: 70px;"><a href="/" class="btn btn-primary">Add Todo</a></span>
+
+  <span style="margin-right: 50px;"><a href='todolist' class='btn btn-success'>Todo List</a></span>
+
+
 <form class='container my-4' method='POST' action='register'>
     {% csrf_token %}
 <section class="vh-100" style="background-color: skyblue;">
@@ -26,6 +34,7 @@
             <div class="card-body p-5">
   
               <h3 class="mb-5">Sign Up</h3>
+              
 
               <form class='container my-4' method='POST' action='register'>
                 {% csrf_token %}
