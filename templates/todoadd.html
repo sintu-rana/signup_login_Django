@@ -2,9 +2,11 @@
 
 
 {% block title %}
-<title>Home Page</title>
+<title>Todoedit</title>
 {% endblock title %}
 {% block body %}
+
+
 {% for message in messages %}
 <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
     <strong>Message</strong> {{message}}
@@ -13,20 +15,12 @@
     </button>
   </div>
   {% endfor %}
-  <h1 class="container">Home Page</h1>
+
+<br>
+<body>
 
 
-  <br>
-
- 
-
-  <span style="margin-left: 70px;"><a href="todoadd" class="btn btn-primary">Add Todo</a></span>
-
-  <span style="margin-right: 50px;"><a href='todolist' class='btn btn-success'>Todo List</a></span>
-
-
-
-  <!-- <div class=" w-50 m-auto p-4 bg-light ">
+  <div class=" w-50 m-auto p-4 bg-light ">
     <h1 class="text-center m-4 bg-info"> Add Todo </h1>
         <form method="post" enctype="multipart/form-data">
             {{form.as_p}}
@@ -36,7 +30,7 @@
 
             {% csrf_token %}
         </form>
-    </div> -->
+    </div>
 
-  
+</body>
 {% endblock body %}

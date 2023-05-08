@@ -17,13 +17,15 @@ from .models import TODO
 
 
 # Create your views here.
-# @login_required(login_url='login')
-# def index(request):
-#     return render(request,'index.html')
+@login_required(login_url='login')
+def index(request):
+    return render(request,'index.html')
+
+
 
 
 @login_required(login_url='login')
-def index(request):
+def useradd(request):
     if request.user.is_authenticated:
         user = request.user
         print(user)
@@ -37,7 +39,7 @@ def index(request):
             print(todo)
             return redirect("main.html")
         else: 
-            return render(request , 'index.html' , context={'form' : form})
+            return render(request , 'todoadd.html' , context={'form' : form})
 '''
 make a api with Admin<only access using that admin can create roles --> Manager/Employee
 
@@ -189,7 +191,36 @@ def logout2(request):
 # def userlist(request):
 #     return render(request,'todolist.html')
 
+@login_required(login_url='login')
 def userlist(request):
     records=TODO.objects.all()
     mydict={'records':records}
     return render(request,'todolist.html',context=mydict)
+
+
+
+def useredit(request,id=None):
+    one_rec=TODO.objects.get(pk=id)
+    form=TODOForm(request.POST or None,request.FILES or None, instance=one_rec)
+    if form.is_valid():
+        form.save()
+        return redirect('todolist')
+    mydict= {'form':form}
+    return render(request,'todoedit.html',context=mydict)
+
+
+# def useredit(request):
+#     return render(request,'todoedit.html')
+
+
+def userdelete(request,eid=None):
+    one_rec = TODO.objects.get(pk=eid)
+    if  request.method=="POST":
+         one_rec.delete()
+         return redirect('todolist')
+    return render(request,'tododelete.html')
+
+
+def userassign(request):
+    return render(request,'todoassign.html')
+    

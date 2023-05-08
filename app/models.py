@@ -28,9 +28,9 @@ class CustomUser(AbstractUser):
     
 class TODO(models.Model):
   status_choices = [
-  ('P', 'PENDING'),
-  ('M', 'INPROGRESS'),
-  ('C', 'SUBMITTED'),
+  ('Pending', 'PENDING'),
+  ('Inprogress', 'INPROGRESS'),
+  ('Submitted', 'SUBMITTED'),
   ]
   priority_choices = [
   ('1', '1️⃣'),
@@ -45,7 +45,7 @@ class TODO(models.Model):
   ('10', '🔟'),
   ]
   task = models.TextField()
-  status = models.CharField(max_length=2 , choices=status_choices)
+  status = models.CharField(max_length=20 , choices=status_choices)
   user  = models.ForeignKey(CustomUser  , on_delete= models.CASCADE,null=False)
   date = models.DateTimeField(auto_now_add=True)
   priority = models.CharField(max_length=2 , choices=priority_choices)
