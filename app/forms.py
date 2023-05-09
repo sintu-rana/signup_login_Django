@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from app.models import TODO
+from app.models import TODO, Manager, Employee
 
 
 class TODOForm(ModelForm):
@@ -8,10 +8,10 @@ class TODOForm(ModelForm):
         model = TODO
         fields = ['task' , 'status' , 'priority']
 
-# class ManagerForm(ModelForm):
-#     class Meta:
-#         model = Manager
-#         fields = ['user' , 'employee']
+class ManagerForm(ModelForm):
+    class Meta:
+        model = Manager
+        fields = ['user' , 'employee']
         
 
        
