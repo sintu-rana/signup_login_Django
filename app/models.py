@@ -49,3 +49,17 @@ class TODO(models.Model):
   user  = models.ForeignKey(CustomUser  , on_delete= models.CASCADE,null=False)
   date = models.DateTimeField(auto_now_add=True)
   priority = models.CharField(max_length=2 , choices=priority_choices)
+
+  assignee = models.ForeignKey(CustomUser, related_name='manager', on_delete=models.CASCADE)
+  assigned_to = models.ForeignKey(CustomUser, related_name='employee', on_delete=models.CASCADE)
+
+  def __str__(self):
+    return str(self.id)
+
+# class Manager(models.Model):
+#   user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
+#   employee = models.ForeignKey('Employee', on_delete=models.CASCADE)
+
+
+# class Employee(models.Model):
+#   user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)

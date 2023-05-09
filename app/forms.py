@@ -8,6 +8,10 @@ class TODOForm(ModelForm):
         model = TODO
         fields = ['task' , 'status' , 'priority']
 
-
+# class ManagerForm(ModelForm):
+#     class Meta:
+#         model = Manager
+#         fields = ['user' , 'employee']
+        
 
        

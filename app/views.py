@@ -10,8 +10,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate as loginUser 
-from .forms import TODOForm
-from .models import TODO
+from .forms import *
+from .models import *
 
 
 
@@ -221,6 +221,30 @@ def userdelete(request,eid=None):
     return render(request,'tododelete.html')
 
 
-def userassign(request):
-    return render(request,'todoassign.html')
+
+# @login_required(login_url='login')
+# def userassign(request):
+#     if request.method == 'GET':
+
+#         records=CustomUser.objects.filter(role='EMPLOYEE').values()
+#         mydict={'records':records}
+#         return render(request,'todoassign.html',context=mydict)
+#         user = CustomUser.objects.get(email=request.user)
+#         if user.role == 'MANAGER':
+#             return render(request,'todoassign.html')
+#         else:
+#             messages.warning(request,"only Manager can assign the task to Employee")
+#             return redirect('login')
     
+
+@login_required(login_url='login')
+def userassign(request):
+    form = ManagerForm(request.POST)
+    if form.is_valid():
+        print(form.cleaned_data)
+        manager = form.save(commit=False)
+        manager.CustomerUser = manager
+        manager.save()
+        return redirect("main.html")
+    else: 
+        return render(request , 'todoassign.html' , context={'form' : form})
