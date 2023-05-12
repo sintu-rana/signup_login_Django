@@ -28,18 +28,22 @@ def index(request):
 def useradd(request):
     if request.user.is_authenticated:
         user = request.user
-        print(user)
-        form = TODOForm(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-            todo = form.save(commit=False)
-            todo.user = user
-            todo.save()
-            messages.success(request, 'Todo Task is Uploaded successfully')
-            print(todo)
-            return redirect("main.html")
-        else: 
-            return render(request , 'todoadd.html' , context={'form' : form})
+        print(user.role)
+        if user.role == 'MANAGER':           
+            form = TODOForm(request.POST)
+            if form.is_valid():
+                print(form.cleaned_data)
+                todo = form.save(commit=False)
+                todo.user = user
+                todo.save()
+                messages.success(request, 'Todo Task is Uploaded successfully')
+                print(todo)
+                return redirect("main.html")
+            else: 
+                return render(request , 'todoadd.html' , context={'form' : form})
+        else:
+            messages.warning(request,"only Manager can assign the Task")
+            return redirect('login')        
 '''
 make a api with Admin<only access using that admin can create roles --> Manager/Employee
 

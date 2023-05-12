@@ -6,7 +6,7 @@ from app.models import TODO, Manager, Employee
 class TODOForm(ModelForm):
     class Meta:
         model = TODO
-        fields = ['task' , 'status' , 'priority']
+        fields = ['task' , 'status' , 'priority', 'employee']
 
 class ManagerForm(ModelForm):
     class Meta:
