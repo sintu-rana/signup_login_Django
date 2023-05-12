@@ -16,7 +16,7 @@ class CustomUser(AbstractUser):
     username = models.CharField(max_length = 20, null=False, unique=True)
     email = models.EmailField(max_length=30, unique = True, null=False)
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['password']
+    REQUIRED_FIELDS = ['email']
     role = models.CharField(
       max_length=20,
       choices=CHOICES,
@@ -25,16 +25,6 @@ class CustomUser(AbstractUser):
  
     def __str__(self):
         return "{}".format(self.email)
-
-
-class Employee(models.Model):
-  user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-
-class Manager(models.Model):
-  user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-  employee = models.ForeignKey('Employee', on_delete=models.CASCADE)
- 
-
 
 
 class TODO(models.Model):
@@ -59,8 +49,8 @@ class TODO(models.Model):
   status = models.CharField(max_length=20 , choices=status_choices)
   date = models.DateTimeField(auto_now_add=True)
   priority = models.CharField(max_length=2 , choices=priority_choices)
-  employee  = models.ForeignKey(Employee  , on_delete= models.CASCADE,null=False)
+  assignor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='managaer', limit_choices_to = {"role":"MANAGER"})
+  assignee = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='employee', limit_choices_to = {"role":"EMPLOYEE"})
   
-
   def __str__(self):
     return str(self.id)

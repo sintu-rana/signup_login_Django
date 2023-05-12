@@ -158,29 +158,6 @@ def create_newuser(request):
 # def login2(request):
 #     return render(request,'task-login.html')
 
-def login2(request):
-    if request.method == 'GET':
-        form1 = AuthenticationForm()
-        context = {
-            "form" : form1
-        }
-        return render(request,'task-login.html',context=context )
-    else:
-        form = AuthenticationForm(data=request.POST)
-        print(form.is_valid())
-        if form.is_valid():
-            username = form.cleaned_data.get('uname')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username = username , password = password)
-            if user is not None:
-                loginUser(request , user)
-                return redirect('home')
-        else:
-            context = {
-                "form" : form
-            }
-            return render(request , 'task-login.html' , context=context )
-
 
 
 
@@ -226,20 +203,6 @@ def userdelete(request,eid=None):
 
 
 
-# @login_required(login_url='login')
-# def userassign(request):
-#     if request.method == 'GET':
-
-#         records=CustomUser.objects.filter(role='EMPLOYEE').values()
-#         mydict={'records':records}
-#         return render(request,'todoassign.html',context=mydict)
-#         user = CustomUser.objects.get(email=request.user)
-#         if user.role == 'MANAGER':
-#             return render(request,'todoassign.html')
-#         else:
-#             messages.warning(request,"only Manager can assign the task to Employee")
-#             return redirect('login')
-    
 
 @login_required(login_url='login')
 def userassign(request):

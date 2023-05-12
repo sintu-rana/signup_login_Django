@@ -12,8 +12,8 @@
     <table class="table table-bordered">
         <tr class="bg-info text-white text-center ">
             <td > SR NO.</td>
-            <td>User</td>
-            <td >User Role</td>
+            <td>Assignor</td>
+            <td >Assignee</td>
             <td> Task</td>
             <td> Task Status </td>
             <td> Priority  </td>
@@ -24,8 +24,8 @@
         {%for rec in records %}
         <tr class="text-center">
             <td>{{forloop.counter}}</td>
-            <td>{{rec.user.first_name}} {{rec.user.last_name}}</td>
-            <td>{{rec.user.role}}</td>
+            <td>{{rec.assignor}}</td>
+            <td>{{rec.assignee}}</td>
             <td>{{rec.task}}</td>
             <td>{{rec.status}}</td>
             <td>{{rec.priority}}</td>

@@ -1,17 +1,14 @@
 from django.forms import ModelForm
 
-from app.models import TODO, Manager, Employee
+from app.models import TODO
 
 
 class TODOForm(ModelForm):
     class Meta:
         model = TODO
-        fields = ['task' , 'status' , 'priority', 'employee']
+        fields = ['task' , 'status' , 'priority','assignor','assignee']
 
-class ManagerForm(ModelForm):
-    class Meta:
-        model = Manager
-        fields = ['user' , 'employee']
+
         
 
        
