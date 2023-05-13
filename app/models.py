@@ -49,8 +49,8 @@ class TODO(models.Model):
   status = models.CharField(max_length=20 , choices=status_choices)
   date = models.DateTimeField(auto_now_add=True)
   priority = models.CharField(max_length=2 , choices=priority_choices)
-  assignor = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='managaer', limit_choices_to = {"role":"MANAGER"})
-  assignee = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='employee', limit_choices_to = {"role":"EMPLOYEE"})
+  assignor = models.ForeignKey(CustomUser, null=True, on_delete=models.SET_NULL, related_name='managaer', limit_choices_to = {"role":"MANAGER"})
+  assignee = models.ForeignKey(CustomUser, null=True, on_delete=models.SET_NULL, related_name='employee', limit_choices_to = {"role":"EMPLOYEE"})
   
   def __str__(self):
     return str(self.id)

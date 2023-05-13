@@ -33,13 +33,21 @@
             <li class="nav-item">
               <a class="nav-link" href="logout">Logout</a>
             </li>
+            {% if request.user.role == "MANAGER" %}
+            <li class="nav-item {% if request.path == '/todoadd' %}active{% endif %}">
+              <a class="nav-link" href="todoadd">Add todo</a>
+            </li>
+            {% endif %}
+
+            {% if request.user.role == "ADMIN" %}
             <li class="nav-item {% if request.path == '/register' %}active{% endif %}">
               <a class="nav-link" href="register">Add Role</a>
             </li>
             <li class="nav-item {% if request.path == '/todoadd' %}active{% endif %}">
               <a class="nav-link" href="todoadd">Add todo</a>
             </li>
-           
+            {% endif %}
+
             {% else %}
             
             <!-- <li class="nav-item {% if request.path == '/register' %}active{% endif %}">
@@ -52,18 +60,6 @@
             <!-- <li class="nav-item {% if request.path == '/todolist' %}active{% endif %}">
               <a class="nav-link" href="/">Add Todo</a>
             </li> -->
-            <li class="nav-item {% if request.path == '/todolist' %}active{% endif %}">
-              <a class="nav-link" href="todolist">TodoList</a>
-            </li>
-            <li class="nav-item {% if request.path == '/register' %}active{% endif %}">
-              <a class="nav-link" href="register">Add Role</a>
-            </li>
-            <li class="nav-item {% if request.path == '/todoadd' %}active{% endif %}">
-              <a class="nav-link" href="todoadd">Add todo</a>
-            </li>
-            <li class="nav-item {% if request.path == '/register' %}active{% endif %}">
-              <a class="nav-link" href="register">Add Role</a>
-            </li>
             <!-- <li class="nav-item {% if request.path == '/todolist' %}active{% endif %}">
             <a class="nav-link" href="todolist">Todo list</a>       
             </li> -->

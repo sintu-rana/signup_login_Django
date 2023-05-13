@@ -6,7 +6,7 @@ from app.models import TODO
 class TODOForm(ModelForm):
     class Meta:
         model = TODO
-        fields = ['task' , 'status' , 'priority','assignor','assignee']
+        fields = ['task' ,'priority','assignor','assignee'] # 'status' 
 
 
         

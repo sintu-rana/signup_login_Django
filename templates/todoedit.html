@@ -13,6 +13,8 @@
 <h1 class="text-center bg-info"> Edit Todo List </h1>
     <form method="post" enctype="multipart/form-data">
         {{form.as_p}}
+        
+        <li>user.role</li>
         <button type="submit" class="btn btn-primary">Update TodoList</button>
         {% csrf_token %}
     </form>
