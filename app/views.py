@@ -17,13 +17,13 @@ from .models import *
 
 
 # Create your views here.
+# @login_required(login_url='login')
+# def index(request):
+#     return render(request,'index.html')
+
+
 @login_required(login_url='login')
 def index(request):
-    return render(request,'index.html')
-
-
-@login_required(login_url='login')
-def useradd(request):
     form = TODOForm(request.POST)
     if form.is_valid():
         user = request.user
@@ -33,9 +33,9 @@ def useradd(request):
         todo.save()
         messages.success(request, 'Todo Task is Uploaded successfully')
         print(todo)
-        return redirect("main.html")
+        return redirect("/")
     else: 
-        return render(request , 'todoadd.html' , context={'form' : form})
+        return render(request , 'index.html' , context={'form' : form})
 
 '''
 make a api with Admin<only access using that admin can create roles --> Manager/Employee

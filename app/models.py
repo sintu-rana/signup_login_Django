@@ -46,7 +46,7 @@ class TODO(models.Model):
   ('10', '🔟'),
   ]
   task = models.TextField()
-  status = models.CharField(max_length=20 , choices=status_choices)
+  status = models.CharField(max_length=20 , choices=status_choices, default="Pending", blank=True)
   date = models.DateTimeField(auto_now_add=True)
   priority = models.CharField(max_length=2 , choices=priority_choices)
   assignor = models.ForeignKey(CustomUser, null=True, on_delete=models.SET_NULL, related_name='managaer', limit_choices_to = {"role":"MANAGER"})

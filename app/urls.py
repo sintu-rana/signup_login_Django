@@ -13,7 +13,7 @@ urlpatterns = [
     path('todolist',views.userlist,name='todolist'),
     path('todoedit<id>',views.useredit,name='todoedit'),
     path('tododelete<eid>',views.userdelete,name='tododelete'),
-    path('todoadd',views.useradd,name='todoadd'),
+    # path('todoadd',views.useradd,name='todoadd'),
     path('todo/assign',views.userassign,name='todoassign'),
     path('reset_password',auth_views.PasswordResetView.as_view(template_name='password_reset_form.html'),name="reset_password"),
     path('reset_password_sent',auth_views.PasswordResetDoneView.as_view(template_name='password_reset_done.html'),name="password_reset_done"),
