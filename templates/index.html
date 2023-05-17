@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+
+
+{% block title %}
+<title>Home Page</title>
+{% endblock title %}
+{% block body %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>Message</strong> {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+  <h1 class="container">Home Page</h1>
+
+
+  <br>
+
+
+
+
+<br>
+<body>
+
+
+
+
+  <div class=" w-50 m-auto p-4 bg-light ">
+    <h1 class="text-center m-4 bg-info"> Add Todo </h1>
+        <form method="post" enctype="multipart/form-data">
+          {{ form.task.label_tag }} {{ form.task }}
+            <br>
+            <!-- {{ form.status.label_tag }} {{ form.status }} 
+            <br> -->
+            {{ form.priority.label_tag }} {{ form.priority }}
+            <br>
+            {{ form.assignor.label_tag }} {{ form.assignor }}
+            <br>
+            {{ form.assignee.label_tag }} {{ form.assignee }}
+            <br>
+            <button type="submit" class="btn btn-primary">Save</button>
+            
+            <span style="margin-right: 3px;"><a href='todolist' class='btn btn-success'>Todo List</a></span>
+
+            {% csrf_token %}
+        </form>
+    </div>
+
+</body>
+  
+  
+{% endblock body %}

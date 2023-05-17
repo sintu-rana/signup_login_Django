@@ -1,0 +1,128 @@
+{% extends 'main.html' %}
+{% block title %}
+<title>Login Page</title>
+{% endblock title %}
+
+
+
+
+{% block body %}
+{% for message in messages %}
+<div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+    <strong>Message</strong> {{message}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+
+
+  <br>
+
+  <span style="margin-left: 70px;"><a href="/" class="btn btn-primary">Add Todo</a></span>
+
+  <span style="margin-right: 50px;"><a href='todolist' class='btn btn-success'>Todo List</a></span>
+
+
+<form class='container my-4' method='POST' action='register'>
+    {% csrf_token %}
+<section class="vh-100" style="background-color: skyblue;">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+          <div class="card shadow-2-strong" style="border-radius: 1rem;">
+            <div class="card-body p-5">
+  
+              <h3 class="mb-5">Admin can create Manager or Employee</h3>
+              
+
+              <form class='container my-4' method='POST' action='register'>
+                {% csrf_token %}
+                <div class="form-row">
+                  <!-- <div class="form-group col-md-6">
+                    <label for="inputEmail4">Email</label>
+                    <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name='email'>
+                  </div> -->
+                  <!-- <div class="form-group col-md-6">
+                    <label for="inputPassword4">Password</label>
+                    <input type="password" class="form-control" id="inputPassword4" placeholder="Password"
+                    name='password'>
+                  </div> -->
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail4">Email</label>
+                  <input type="email" class="form-control" id="inputEmail4" placeholder="Email" name='email' required>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword4">Password</label>
+                  <input type="password" class="form-control" id="inputPassword4" placeholder="Password"
+                  name='password' required>
+                </div>
+                <div class="form-group">
+                  <label for="inputAddress">First Name</label>
+                  <input type="text" class="form-control" id="inputAddress" placeholder="First Name"
+                  name='fname' required>
+                </div>
+                <div class="form-group">
+                  <label for="inputAddress2">Last Name</label>
+                  <input type="text" class="form-control" id="inputAddress2" placeholder="Last Name"
+                  name='lname' required>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-12">
+                    <label for="inputCity">User Name</label>
+                    <input type="text" class="form-control" id="inputCity" placeholder="User Name" name='uname' required>
+                  </div>
+                  <div class="form-group col-md-12">
+                      <label for="inputCity">Role</label>
+                      <select class="form-control" name='role' required>
+                        <option>ADMIN</option>
+                        <option>MANAGER</option>
+                        <option>EMPLOYEE</option>
+                        
+                        
+                      </select>
+                  </div>
+               
+                  
+
+                <div class="d-flex justify-content-start mb-4">
+             
+                    <label class="form-check-label" for="form1Example3">
+                        <!-- <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button> -->
+                    <span style="margin-left: 4px;"><button class='btn btn-primary' type="submit">Sign Up</button></span>
+                        
+                    </label>
+                  </div>
+                     
+                    <hr class="my-4">
+
+
+                    <div class="form-check d-flex justify-content-start mb-4">
+             
+                      <label class="form-check-label" for="form1Example3">
+                      <!-- <a class="btn btn-success btn-lg btn-block" href='login'>Sign In</a> -->
+                    <span style="margin-right: 3px;"><a href='login' class='btn btn-success'>Sign In</a></span>
+                          
+                      </label>
+      </div>
+
+      
+      <!-- <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
+       --> 
+                 
+    
+                  </div>
+
+              </form>
+  
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+{% endblock body %}
